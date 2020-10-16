@@ -75,8 +75,9 @@ a {
 </style>
 <script type="text/javascript">
 
-var redarray = ["#fcc","#fcc", "#fbb","#fbb", "#faa","#faa", "#f99","#f99","#f88","#f77","#f66", "#f55",  "#f44",  "#f33", "#f22", "#f11"];
-var bluearray =[ "#00f", "#11f", "#22f", "#33f", "#44f", "#55f", "#66f", "#77f","#88f", "#99f", "#aaf", "#bbf", "#ccf", "#ddf", "#eef", "#fff" ];
+var redarray = ["#fcc","#fcc", "#fbb","#fbb", "#faa","#faa", "#f99","#f99","#f88","#f77","#f66", "#f55",  "#f44",  "#f33", "#f22", "#f11" 
+				] ;
+var bluearray =[ "#00f", "#11f", "#22f", "#33f", "#44f", "#55f", "#66f", "#77f","#88f", "#99f", "#aaf", "#bbf", "#ccf", "#ddf", "#eef", "#fff" ] ;
 				
 
 var cb_color  = "#ffc" ; //code background
@@ -85,7 +86,7 @@ var minish_color = "yellow" ; //color of min value
 
 
 var i_index;
-var algStep;
+var algStep_g;
 var random_val;
 
 
@@ -119,7 +120,7 @@ function initElement() {
 	}
     
 	i_step = -1;
-	algStep = 0;
+	alg_num = 0;
 	
 	document.getElementById("codeloc0").style.background = cb_color ;
 	document.getElementById("codeloc1").style.background = cb_color ;
@@ -146,30 +147,30 @@ function redrawArray() {
 	}
 }
 
-function algorithmStep() {
+function algStep() {
 	//var randomValue;
-    switch (algStep) {
+    switch (alg_num) {
 	case 0:
-        	i_step++;
+        i_step++;
 		if (i_step==16) { //this is the end of the for loop
-			algStep = 2;
+			alg_num = 2;
 			break;
 		}
 		redrawArray();
-        	setCodeColors(1);
-		algStep = 1;
+        setCodeColors(1);
+		alg_num = 1;
 		break ;
 	case 1:
-        	random_val = Math.floor(Math.random() * (16-i_step) + i_step);
-        	//color the random index grey
-        	setCellColor(random_val+1, "#ccc");
-        	//swap the values
-        	var temp = a[i_step];
-        	a[i_step] = a[random_val];
-        	a[random_val] = temp;
+        random_val = Math.floor(Math.random() * (16-i_step) + i_step);
+        //color the random index grey
+        setCellColor(random_val+1, "#ccc");
+        //swap the values
+        var temp = a[i_step];
+        a[i_step] = a[random_val];
+        a[random_val] = temp;
 		redrawArray();
 		setCodeColors(2);
-		algStep = 0;
+		alg_num = 0;
 		break;
 	case 2:
 		break; 
@@ -177,10 +178,10 @@ function algorithmStep() {
 }
 
 function setCodeColors(i) {
-	document.getElementById("codeloc0").style.background = cb_color ;
+    document.getElementById("codeloc0").style.background = cb_color ;
 	document.getElementById("codeloc1").style.background = cb_color ;
 	document.getElementById("codeloc2").style.background = cb_color ;
-	document.getElementById("codeloc"+i).style.background = cbh_color ;
+    document.getElementById("codeloc"+i).style.background = cbh_color ;
 }
 
 function sortNumber(a,b) { return a - b ; } 
@@ -283,7 +284,7 @@ for i = 1 to A.length
 <td style="border: solid blue 2px; background: #eef;"
 onclick="stepZero()">&nbsp;Restart&nbsp;
 <td style="border: solid blue 2px; background: #fee;"
-onclick="algorithmStep()">&nbsp;Next&nbsp;
+onclick="algStep()">&nbsp;Next&nbsp;
 </table>
 </div>
 </body>
